@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Proyecto de Arquitectura - UCR</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
+	<link href="css/proyecto.css" rel="stylesheet" media="screen">
+  </head>
+  <body>
+    <div class="container-narrow">
+
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="proyecto_arquitectura_inicio.html">Inicio</a></li>
+          <li class="active"><a href="proyecto_arquitectura_animacion.html">Animación</a></li>
+          <li><a href="proyecto_arquitectura_faqs.html">FAQs</a></li>
+		  <li><a href="proyecto_arquitectura_acerca_de.html">Acerca De</a></li>
+        </ul>
+        <h3 class="muted">Arquitectura de Computadoras</h3>
+		<h4 class="muted">Universidad de Costa Rica</h4>
+      </div>
+
+      <hr>
+
+      <div class="row-fluid marketing">
+        <div class="span12">
+          <h3 style="text-align: center;">Animación Configurable</h3>
+          <br />
+		  <h4 style="margin-left: 2.7624309392265194%;">Parámetros:</h4>
+		  
+        </div>
+		<div class="span5">
+			<div class="btn-group">
+			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+				Capacidad
+				<span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu">
+				<!-- dropdown menu links -->
+				<li><a id="cap8" href="#">8</a></li>
+				<li><a id="cap16" href="#">16</a></li>
+				<li><a id="cap32" href="#">32</a></li>
+			  </ul>
+			</div>
+			<div class="btn-group">
+			  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+				Bloque
+				<span class="caret"></span>
+			  </a>
+			  <ul class="dropdown-menu">
+				<!-- dropdown menu links -->
+				<li><a href="#">8</a></li>
+				<li><a href="#">16</a></li>
+				<li><a href="#">32</a></li>
+			  </ul>
+			</div>
+		</div>
+		<div class="span5">
+			<input type="text" class="input-block-level" placeholder="Email address">
+		</div>
+
+      </div>
+		
+      <hr>
+	  
+	  <canvas id="myCanvas" width="700" height="300"></canvas>
+	  <script>
+      window.requestAnimFrame = (function(callback) {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function(callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+      })();
+
+      function drawRectangle(myRectangle, context) {
+        context.beginPath();
+        context.rect(myRectangle.x, myRectangle.y, myRectangle.width, myRectangle.height);
+        context.fillStyle = '#8ED6FF';
+        context.fill();
+        context.lineWidth = myRectangle.borderWidth;
+        context.strokeStyle = 'black';
+        context.stroke();
+      }
+      function animate(myRectangle, canvas, context, startTime) {
+        // update
+        var time = (new Date()).getTime() - startTime;
+        var amplitude = 150;
+
+        // in ms
+        var period = 2000;
+        var centerX = canvas.width / 2 - myRectangle.width / 2;
+        var nextX = amplitude * Math.sin(time * 2 * Math.PI / period) + centerX;
+        myRectangle.x = nextX;
+
+        // clear
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        // draw
+        drawRectangle(myRectangle, context);
+
+        // request new frame
+        requestAnimFrame(function() {
+          animate(myRectangle, canvas, context, startTime);
+        });
+      }
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      var myRectangle = {
+        x: 250,
+        y: 70,
+        width: 100,
+        height: 50,
+        borderWidth: 5
+      };
+
+      drawRectangle(myRectangle, context);
+
+      // wait one second before starting animation
+      setTimeout(function() {
+        var startTime = (new Date()).getTime();
+        animate(myRectangle, canvas, context, startTime);
+      }, 1000);
+    </script>
+	  <hr>
+
+      <div class="footer">
+        <p>&copy; Universidad de Costa Rica | 2013</p>
+      </div>
+
+    </div>
+	<!-- Bootstrap JS -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
