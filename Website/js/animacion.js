@@ -1,6 +1,7 @@
   /** Globales: **/
   var colorCuadroMemoria = "#3F7E3F";
   var colorCuadroCPU = "#3F7E3F";
+  var colorCuadroCache = "#3F7E3F";
   
   window.requestAnimFrame = (function(callback) {
 	return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
@@ -18,7 +19,15 @@
 	context.lineWidth = miRect.borderWidth;
 	context.strokeStyle = 'black';
 	context.stroke();
-	
+  }
+  
+  /** Dibujar Línea **/
+  function dibujarLinea(context, inicialX, inicialY, x, y){
+	context.beginPath();
+    context.moveTo(inicialX, inicialY);
+    context.lineTo(x,y);
+	context.closePath();
+	context.stroke();
   }
   
   /** Etiquetas **/
@@ -26,7 +35,8 @@
 	context.font = "bold 12px sans-serif";
 	context.fillStyle = 'black';
 	context.fillText("CPU", 277.5, 35);
-	context.fillText("Memoria", 267.5, 235);
+	context.fillText("Cache", 267.5, 170);
+	context.fillText("Memoria", 267.5, 305);
   }
   
   /** Rectángulos estáticos **/
@@ -38,6 +48,15 @@
 	context.lineWidth = miRectEstatico.borderWidth;
 	context.strokeStyle = 'black';
 	context.stroke();
+  }
+  
+  function dibujarBase( context, miRectEstatico ) {
+	  dibujarRectangulo(250, 10, miRectEstatico, context, colorCuadroCPU);
+	  dibujarRectangulo(250, 145, miRectEstatico, context, colorCuadroCache);
+	  dibujarRectangulo(250, 280, miRectEstatico, context, colorCuadroMemoria);
+	  dibujarEtiquetas(context);
+	  dibujarLinea(context, 290, 51, 290, 144);
+	  dibujarLinea(context, 290, 186, 290, 279);
   }
   
   /** Animar Rectángulo **/
@@ -58,13 +77,11 @@
 
 	// draw
 	//dibujarRectangulo(miRect, context, "#3F7E3F");
-	dibujarRectangulo(250, 10, miRectEstatico, context, colorCuadroCPU);
-	dibujarRectangulo(250, 210, miRectEstatico, context, colorCuadroMemoria);
-	dibujarEtiquetas(context);
+	dibujarBase(context, miRectEstatico);
 
 	// request new frame
 	requestAnimFrame(function() {
-	  animate(miRect, canvas, context, startTime);
+	  animate(miRect, miRectEstatico, canvas, context, startTime);
 	});
   }
   
@@ -89,9 +106,7 @@
 	  }
 
 	  //dibujarRectangulo(miRect, context, "#3F7E3F");
-	  dibujarRectangulo(250, 10, miRectEstatico, context, colorCuadroCPU);
-	  dibujarRectangulo(250, 210, miRectEstatico, context, colorCuadroMemoria);
-	  dibujarEtiquetas(context);
+	  dibujarBase(context, miRectEstatico);
 
 	  // wait one second before starting animation
 	  setTimeout(function() {
