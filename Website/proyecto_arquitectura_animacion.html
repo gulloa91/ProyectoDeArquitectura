@@ -8,6 +8,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen">
 	<link href="css/proyecto.css" rel="stylesheet" media="screen">
+	<link href="css/ui-lightness/jquery-ui-1.10.3.custom.css" rel="stylesheet">
   </head>
   <body>
     <div class="container-narrow">
@@ -25,55 +26,69 @@
 
       <hr>
 
-	  <div class="well">
-      <div class="row-fluid marketing" style="margin: 0;">
-        <div class="span12">
-          <h3 style="text-align: center;">Animación Configurable</h3>
-          <br />
-		  <h4 style="margin-left: 2.7624309392265194%;">Parámetros:</h4>
-		  
-        </div>
-		<div class="span5">
-			<span class="label" style="margin-bottom: 5px;">Tamaño Cache</span>
-			<select id="tam_cache" class="selectpicker">
-				<option value="8">8 Words</option>
-				<option value="16">16 Words</option>
-			 </select>
-		</div>
-		<div class="span5" style="float: right;">
-			<span class="label" style="margin-bottom: 5px;">Tamaño de Bloque</span>
-			<select id="tam_bloque" class="selectpicker">
-				<option value="1">1 Word</option>
-				<option value="4">4 Words</option>
-			 </select>
-		</div>
+	  <div class="well div_parametros">
+		  <div class="row-fluid marketing" style="margin: 0;">
+			<div class="span12">
+			  <h3 style="text-align: center;">Animación Configurable</h3>
+			  <br />
+			  <h4 style="margin-left: 2.7624309392265194%;">Parámetros:</h4>
+			  
+			</div>
+			<div class="span5">
+				<span class="label" style="margin-bottom: 5px;">Tamaño Cache</span>
+				<select id="tam_cache" class="selectpicker">
+					<option value="8">8 Words</option>
+					<option value="16">16 Words</option>
+				 </select>
+			</div>
+			<div class="span5" style="float: right;">
+				<span class="label" style="margin-bottom: 5px;">Tamaño de Bloque</span>
+				<select id="tam_bloque" class="selectpicker">
+					<option value="1">1 Word</option>
+					<option value="4">4 Words</option>
+				 </select>
+			</div>
+			
+			<div class="span12" style="text-align: center; margin-top: 35px; margin-left: 0;" >
+				<button type="button" class="btn btn-success btn-medium" onclick="empezarAnimacion();">Empezar</button>
+			</div>
 
-      </div>
+		  </div>
 	  
 	  </div>
-		
-      <hr>
 	  
 	  <!-- Canvas de Animación 
 	  <canvas id="animacion" width="700" height="330"></canvas>
 	  -->
-	  <a href="#" class="btn btn-primary btn-small">Cargar instrucción</a>
-	  <a href="#" class="btn btn-secondary btn-small">Borrar</a>
-	 <div class="well" style="margin-top: 10px;">
-		<div class="row-fluid">
-			<div class="span12">
-				<span class="badge">Hits <span class="badge badge-success">2</span></span>
-				<span class="badge">Ratio <span class="badge badge-success">0.88%</span></span>
-				<span class="badge">Correspondencia <span class="badge badge-success">Asociativa</span></span>
-			</div>
-			
-			<div class="span5">
-				<span class="label" style="margin-bottom: 5px;">Memoria Cache</span>
-				<table id="tabla_dinamica" class="table table-striped table-condensed">
+	 <div class="div_animacion">
+		  <button id="btnReproducir" type="button" class="btn btn-success btn-small" onclick="reproducir_animacion();">Reproducir <i class="icon-play"></i></button>
+		  <button type="button" class="btn btn-warning btn-small" onclick="cargar_instruccion();">Cargar instrucción</button>
+		  <button type="button" class="btn btn-small" onclick="borrar_instrucciones();">Reiniciar</button>
+		  <button type="button" style="float: right;" class="btn btn-danger btn-small" onclick="volverAEmpezar();">Cambiar parámetros</button>
+		 <div class="well" style="margin-top: 10px;">
+			<div class="row-fluid">
+				<div class="span12">
+					<span class="badge">Pasos <span id="paso" class="badge badge-success">0</span></span>
+					<span class="badge">Hits <span id="hits" class="badge badge-success">0</span></span>
+					<span class="badge">Promedio <span class="badge badge-success"><span id="ratio">0</span>%</span></span>
+					<span class="badge">Correspondencia <span class="badge badge-success">Asociativa</span></span>
+				</div>
 				
-				</table>
+				<div class="span5">
+					<h4 style="margin-bottom: 5px;">Memoria Cache</h4>
+					<table id="tabla_dinamica" class="table table-striped table-condensed table-bordered" style="width: 70%;">
+					
+					</table>
+					<span class="label label-info">Hit</span>
+					<span class="label label-inverse">Reemplazo</span>
+				</div>
+				
+				<div class="span6">
+					<h4 style="margin-bottom: 5px;">Instrucciones de pograma</h4>
+					<textarea disabled="true" id="instrucciones" rows="12" style="width: 100%; resize: none;"></textarea>
+				</div>
 			</div>
-		</div>
+		 </div>
 	 </div>
 	  
 	  <hr>
@@ -85,6 +100,7 @@
     </div>
 	<!-- Bootstrap JS -->
     <script src="js/jquery-1.10.1.min.js"></script>
+	<script src="js/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/animacion_funciones.js"> </script>
 	<!-- Animación 
