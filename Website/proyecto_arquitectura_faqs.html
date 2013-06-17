@@ -30,14 +30,20 @@
         <div class="span">
 		  <h3 style="text-align: center;"> Preguntas más frecuentes - FAQs </h3>
 		  <br />
-          <h4>1. ¿Por qué Manuel cruzó la calle?</h4>
-          <p>Porque había una güilita del otro lado de la calle.</p>
+          <h4>1. ¿Porqué en los procesadores recientes los diseñadores han optado más por la asociatividad en lugar de cachés más grandes en el primer nivel? </h4>
+          <p>Debido a que el efecto en la velocidad del reloj deriva del largo de la caché, además la asociatividad tiene la posibilidad de eliminar los &quot;address aliases&quot;.</p>
 
-          <h4>2. ¿Por qué Heriberto cruzó la calle?</h4>
-          <p>Porque el Paté Centeno estaba del otro lado de la calle.</p>
+          <h4>2. ¿Cómo logra &quot;way prediction&quot; reducir los fallos de conflicto y mantener la velocidad en los aciertos de caché?</h4>
+          <p>Manteniendo los bits adicionales en la memoria caché para predecir la forma del siguiente acceso a la caché. Es decir, el multiplexor se establece temprano para seleccionar el bloque deseado, y solo se lleva a cabo una comparación de etiquetas en paralelo con la lectura del dato de la caché.</p>
 
-          <h4>3. Etc ...</h4>
-          <p>...</p>
+          <h4>3. ¿En qué consiste el acceso a caché con pipeline? </h4>
+          <p>Optimización utilizada para incrementar el ancho de banda del caché, añadiendo varios niveles del pipeline, logrando atender una solicitud cada ciclo de reloj pero disminuyendo el tiempo de hit o acierto de caché.</p>
+		  
+          <h4>4. ¿De qué manera una caché sin bloqueo aumenta el ancho de banda?</h4>
+          <p>Porque permite seguir atendiento solicitudes y llevar a cabo aciertos durante un fallo, en lugar de ignorar las solicitudes.</p>
+
+          <h4>5. ¿En qué consiste el &quot;sequential interleaving&quot; en &quot;Multibanked Caches&quot;?</h4>
+          <p>Consiste en mapear o distribuir las direcciones del bloque sucesivamente o secuencialmente a los bancos independientes, los cuales pueden soportar accesos simultáneos.</p>
         </div>
 
       </div>
