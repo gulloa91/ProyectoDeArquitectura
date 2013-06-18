@@ -3,6 +3,8 @@
 var programa1 = [["0", "MOV", "0, R0"], ["2", "MOV" ,"R0, R1"], ["4", "MOV", "2, R1"], ["6", "MOV", "R1, R2"], ["8", "ADD", "1, R0"], ["10", "MOV" ,"R0, R2"], ["12", "MUL", "R1, R0"], ["14", "MOV", "R1, R2"], ["16", "CMP", "256, R0"], ["18", "BLE", "8"], ["8", "ADD", "1, R0"], ["10", "MOV" ,"R0, R2"], ["12", "MUL", "R1, R0"], ["14", "MOV", "R1, R2"], ["16", "CMP", "256, R0"], ["18", "BLE", "8"], ["8", "ADD", "1, R0"], ["10", "MOV" ,"R0, R2"], ["12", "MUL", "R1, R0"], ["14", "MOV", "R1, R2"], ["16", "CMP", "256, R0"], ["18", "BLE", "8"], ["8", "ADD", "1, R0"], ["10", "MOV" ,"R0, R2"], ["12", "MUL", "R1, R0"], ["14", "MOV", "R1, R2"], ["16", "CMP", "256, R0"], ["18", "BLE", "8"], ["8", "ADD", "1, R0"], ["10", "MOV" ,"R0, R2"], ["12", "MUL", "R1, R0"], ["14", "MOV", "R1, R2"], ["16", "CMP", "256, R0"], ["18", "BLE", "8"], ["8", "ADD", "1, R0"], ["10", "MOV" ,"R0, R2"], ["12", "MUL", "R1, R0"], ["14", "MOV", "R1, R2"], ["16", "CMP", "256, R0"], ["18", "BLE", "8"], ["8", "ADD", "1, R0"], ["10", "MOV" ,"R0, R2"], ["12", "MUL", "R1, R0"], ["14", "MOV", "R1, R2"], ["16", "CMP", "256, R0"], ["18", "BLE", "8"], ["8", "ADD", "1, R0"], ["10", "MOV" ,"R0, R2"], ["12", "MUL", "R1, R0"], ["14", "MOV", "R1, R2"], ["16", "CMP", "256, R0"], ["18", "BLE", "8"], ["20", "STP", "0"]];
 
 var play = false;
+var pasosArray = new Array(); // Para estadísticas
+var hitsArray = new Array();
 
 // Main
 $(document).ready(function(){
@@ -78,6 +80,7 @@ function empezarAnimacion(){
 function cargar_instruccion(){
 	try {
 		var paso = parseInt( $("#paso").text() );
+		pasosArray.push( parseInt( paso ) );
 		var valoresInstruccion = programa1[paso][2];
 		var instruccion = programa1[paso][1];
 		var direccion = programa1[paso][0];
@@ -97,7 +100,19 @@ function cargar_instruccion(){
 	} catch (e) {  // Terminó el programa
 		play = false;
 		$("#btnReproducir").html("Reproducir <i class='icon-play'></i>");
+		hitsArray.push(0);
+		mostrarEstadisticas();
 	}
+}
+
+function mostrarEstadisticas(){
+	with(jstat){
+		var x = pasosArray;
+		var y = hitsArray;
+		plot(x,y,{
+			main: 'My first jStat graph'
+		});
+	};
 }
 
 function borrar_instrucciones(){
@@ -109,6 +124,8 @@ function borrar_instrucciones(){
 	$("#instrucciones").val("");
 	play = false;
 	$("#btnReproducir").html("Reproducir <i class='icon-play'></i>");
+	pasosArray = new Array(); // Para estadísticas
+	hitsArray = new Array();
 }
 
 function analizarInstruccion( espacioVacio, direccion, instruccion ){
@@ -117,6 +134,7 @@ function analizarInstruccion( espacioVacio, direccion, instruccion ){
 		//$("#dir_" + espacioVacio).text( direccion );
 		//$("#inst_" + espacioVacio).text( instruccion );
 		agregarBloquesEnCacheConVacio( $("#tam_bloque").val(), espacioVacio, direccion, instruccion ); // Optimización
+		hitsArray.push(0);
 		
 	} else { // Aplicar algoritmo para buscar un espacio
 		var indice = estaEnCache(direccion);
@@ -126,6 +144,7 @@ function analizarInstruccion( espacioVacio, direccion, instruccion ){
 			hits = ++hits;
 			$("#hits").text( hits );
 			$("#ratio").text( (hits/pasos) * 100 );
+			hitsArray.push(hits);
 			$("#dir_" + indice).css({ 
 				"background": "#3A87AD",
 				"color":"#FFF"
@@ -150,6 +169,7 @@ function analizarInstruccion( espacioVacio, direccion, instruccion ){
 				"color":"#FFF"
 			});
 			*/
+			hitsArray.push(0);
 			agregarBloquesEnCacheSinVacio( $("#tam_bloque").val(), indice, direccion, instruccion )
 		}
 	}
