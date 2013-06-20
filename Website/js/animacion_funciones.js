@@ -110,7 +110,7 @@ function mostrarEstadisticas(){
 		var x = pasosArray;
 		var y = hitsArray;
 		plot(x,y,{
-			main: 'My first jStat graph'
+			main: 'Estadisticas'
 		});
 	};
 }
